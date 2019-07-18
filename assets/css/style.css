@@ -1,0 +1,26 @@
+/* general styling */
+body {
+  /* background styling */
+  background: url('../images/star-wars-words.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: 'Fjalla One', sans-serif;
+}
+
+body {
+  color: #ffffff;
+}
+
+h2 {
+  text-align: center;
+}
+
+ img {
+   width: 100%;
+ }
+
+ div.cont-enemies, div.cont-heroes {
+   width: 50%;
+ }
