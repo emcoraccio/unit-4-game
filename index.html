@@ -18,40 +18,52 @@
 
     <section class="game-play">
 
+      <div class="options screen2">
+        <p>Play as a <span class="choice rebels-choice" choice="rebels">Rebel</span> or an <span class="choice imperials-choice" choice="imperials">Imperial</span>?</p>
+      </div>
+
       <div class="container">
         <div class="row">
-          <div class="col s12 m6 cont-heroes">
+          <div class="col s12 cont-rebels screen3">
             <div class="row">
               <div class="col s12">
-                <h2>Heroes</h2>
+                <h2>REBELS</h2>
+                <p class="choose">choose a character to be</p>
               </div>
               <div class="col l4 m4 s12">
-                <img class="hero luke" src="./assets/images/luke-skywalker.jpg" alt="luke skywalker">
+                <img class="character rebel luke" name="luke" side="rebel" src="./assets/images/luke-skywalker.jpg" alt="luke skywalker">
+                <p class="health-display rebel">HEALTH: <span class="health luke" name="luke"></span></p>
               </div>
               <div class="col l4 m4 s12">
-                <img class="hero leia" src="./assets/images/princess-leia.jpg" alt="princess leia">
+                <img class="character rebel leia" name="leia" side="rebel" src="./assets/images/princess-leia.jpg" alt="princess leia">
+                <p class="health-display rebel">HEALTH: <span class="health leia" name="leia"></span></p>
               </div>
               <div class="col l4 m4 s12">
-                <img class="hero yoda" src="./assets/images/yoda.jpg" alt="yoda">
+                <img class="character rebel yoda" name="yoda" side="rebel" src="./assets/images/yoda.jpg" alt="yoda">
+                <p class="health-display rebel">HEALTH: <span class="health yoda" name="yoda"></span></p>              
               </div>
             </div>
           </div>
 
 
 
-        <div class="col s12 m6 cont-enemies">
+        <div class="col s12 cont-imperials screen3">
           <div class="row">
             <div class="col s12">
-              <h2>Enemies</h2>
+              <h2>IMPERIALS</h2>
+              <p class="choose">choose a character to be</p>
             </div>
             <div class="col l4 m4 s12">
-              <img class="enemy atdp" src="./assets/images/ATDP.jpg" alt="atdp">
+              <img class="character imperial atdp" name="atdp" side="imperial" src="./assets/images/ATDP.jpg" alt="atdp">
+              <p class="health-display imperial">HEALTH: <span class="health atdp" name="atdp"></span></p>                          
             </div>
-            <div class="col l4 s12">
-              <img class="enemy tarkin" src="./assets/images/grand-moff-tarkin.jpg" alt="grand-moff-tarkin">
+            <div class="col l4 m4 s12">
+              <img class="character imperial tarkin" name="tarkin" side="imperial" src="./assets/images/grand-moff-tarkin.jpg" alt="grand-moff-tarkin">
+              <p class="health-display imperial">HEALTH: <span class="health tarkin" name="tarkin"></span></p>                          
             </div>
-            <div class="col l4 s12">
-              <img class="enemy stormtrooper" src="./assets/images/stormtrooper.jpg" alt="stormtrooper">
+            <div class="col l4 m4 s12">
+              <img class="character imperial stormtrooper" name="stormtrooper" side="imperial" src="./assets/images/stormtrooper.jpg" alt="stormtrooper">
+              <p class="health-display imperial">HEALTH: <span class="health stormtrooper" name="stormtrooper"></span></p>                          
             </div>
 
           </div>
@@ -59,13 +71,14 @@
       </div>
 
       <div class="row">
-        <div class="col s12 cont-battle">
+        <div class="col s12 cont-battle screen3">
           <div class="row battle">
             <div class="col s12">
-              <h2>Battle!</h2>
+              <h2>Battle!</h2>      
             </div>
-            <div class="col s12 m6 chosen-hero"></div>
-            <div class="col s12 m6 chosen-enemy"></div>
+            <div class="col s12 m5 chosen-hero"></div>
+            <div class="col s12 m2"><button class="waves-effect waves-light btn attack">ATTACK!</button></div>
+            <div class="col s12 m5 chosen-enemy"></div>
           </div>
         </div>
       </div>
