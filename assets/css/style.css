@@ -1,11 +1,12 @@
 /* general styling */
 body {
   /* background styling */
-  background: url('../images/star-wars-words.jpg') no-repeat center center fixed;
+  background: url('../images/angelina-litvin--PJlROiHRkU-unsplash.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  /* background: #000000; */
   font-family: 'Fjalla One', sans-serif;
 }
 
@@ -76,4 +77,5 @@ h2 {
   
   button.attack {
     margin: auto;
+    display:none;
   }

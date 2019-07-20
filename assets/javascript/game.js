@@ -1,5 +1,5 @@
 
-let rebel = {
+let characters = {
 
   luke: {
     health: 120,
@@ -14,11 +14,10 @@ let rebel = {
   yoda: {
     health: 90,
     attack: 15
-  }
+  },
 
-}
 
-let imperial = {
+// let imperial = {
 
   atdp: {
     health: 145,
@@ -53,6 +52,8 @@ $(document).ready(function(){
   let imperialsDiv = $('div.cont-imperials');
   let chosenHeroDiv = $('div.chosen-hero');
   let chosenEnemyDiv = $('div.chosen-enemy');
+  let chosenHero = $('img.chosen-hero');
+  let chosenEnemy = $('img.chosen-enemy');
   let chooseCharacText = $('p.choose');
 
   let characterImg = $('img.character');
@@ -64,14 +65,24 @@ $(document).ready(function(){
   let tarkinHealth = $('span.tarkin');
   let stormtrooperHealth = $('span.stormtrooper');
 
+  let heroAttack;
+  let enemyAttack;
+  let newAttack;
+  let heroHealthText;
+  let enemyHealthText;
+  let heroHealth;
+  let enemyHealth;
+  
+  let battleStarted = false;
+
 
   let reset = function() {
-    lukeHealth.text(rebel.luke.health);
-    leiaHealth.text(rebel.leia.health);
-    yodaHealth.text(rebel.yoda.health);
-    atdpHealth.text(imperial.atdp.health);
-    tarkinHealth.text(imperial.tarkin.health);
-    stormtrooperHealth.text(imperial.stormtrooper.health);
+    lukeHealth.text(characters.luke.health);
+    leiaHealth.text(characters.leia.health);
+    yodaHealth.text(characters.yoda.health);
+    atdpHealth.text(characters.atdp.health);
+    tarkinHealth.text(characters.tarkin.health);
+    stormtrooperHealth.text(characters.stormtrooper.health);
   }
 
   reset();
@@ -94,8 +105,13 @@ $(document).ready(function(){
     console.log(chosenHeroDiv.has('img').length);
     
     if(!chosenHeroDiv.has('img').length){
+      _this.next().addClass('hero-health')
+      heroHealthText = $('p.hero-health > span')
       chosenHeroDiv.append(_this.next());
       chosenHeroDiv.append(_this);
+      (_this).addClass('chosen-hero')
+      chosenHero = $('img.chosen-hero');
+
       
       screen3.fadeIn();
       
@@ -109,9 +125,14 @@ $(document).ready(function(){
       console.log(chosenHeroDiv.has('img').length);
     } 
     else if (!chosenEnemyDiv.has('img').length) {
+      _this.next().addClass('enemy-health')
+      enemyHealthText = $('p.enemy-health > span')
       chosenEnemyDiv.append(_this.next());
       chosenEnemyDiv.append(_this);
+      (_this).addClass('chosen-enemy')
+      chosenEnemy = $('img.chosen-enemy');
       chooseCharacText.fadeOut();
+      $('button.attack').show();
     }
   });
 
@@ -127,12 +148,53 @@ $(document).ready(function(){
     }
   )
 
-
-
+  let setChosenValues = function() {
+    if(chosenHeroDiv.has('img').length && chosenEnemyDiv.has('img').length) {
+      // let chosenHero = $('img.chosen-hero');
+      // let chosenEnemy = $('img.chosen-enemy');
+  
+      let heroName = chosenHero.attr('name');
+      let enemyName = chosenEnemy.attr('name');
+  
+      enemyAttack = characters[enemyName]['attack'];
+      heroAttack = characters[heroName]['attack'];
+  
+      heroHealth = characters[heroName]['health'];
+      enemyHealth = characters[enemyName]['health'];
+      
+      return [heroHealth, enemyHealth] 
+    }
   }
 
+  $('button.attack').on('click', function(){
+    if(!battleStarted) {
+      setChosenValues();
+      newAttack = parseInt(heroAttack);
+    }
+
+    let isDefeated = function() {
+      if (enemyHealth <= 0){
+        chosenEnemyDiv.fadeOut('slow');
+  
+    }
+  
+    }
+
+    enemyHealth -= parseInt(newAttack);
+    isDefeated();
+    heroHealth -= parseInt(enemyAttack)
+  
+    newAttack += heroAttack;
+    heroHealthText.text(heroHealth)
+    enemyHealthText.text(enemyHealth)
+
+    battleStarted = true;
+    
+  });
 
 
 
 
-);
+
+
+});
