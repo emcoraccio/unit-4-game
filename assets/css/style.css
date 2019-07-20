@@ -79,3 +79,7 @@ h2 {
     margin: auto;
     display:none;
   }
+
+  div.defeated-enemies {
+    display:none;
+  }
