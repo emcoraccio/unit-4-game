@@ -39,6 +39,8 @@ $(document).ready(function () {
   let screen1 = $('div.screen1');
   let screen2 = $('div.screen2');
   let screen3 = $('div.screen3');
+  let youWinScreen = $('div.you-win-screen');
+  let youLoseScreen = $('div.you-lose-screen');
 
   let rebelsDiv = $('div.cont-rebels');
   let imperialsDiv = $('div.cont-imperials');
@@ -46,7 +48,10 @@ $(document).ready(function () {
   let chosenEnemyDiv = $('div.chosen-enemy');
   let chosenHero = $('img.chosen-hero');
   let chosenEnemy = $('img.chosen-enemy');
+  let $defeatedEnemies = $('div.defeated-enemies');
   let chooseCharacText = $('p.choose');
+  let $yourSide = $('span.your-side');
+  let $otherSide = $('span.other-side');
 
   let characterImg = $('img.character');
 
@@ -65,6 +70,7 @@ $(document).ready(function () {
   let heroHealth;
   let enemyHealth;
   let heroSide;
+  let enemySide;
 
   let battleStarted = false;
 
@@ -76,6 +82,8 @@ $(document).ready(function () {
     atdpHealth.text(characters.atdp.health);
     tarkinHealth.text(characters.tarkin.health);
     stormtrooperHealth.text(characters.stormtrooper.health);
+    battleStarted = false;
+    
   }
 
   reset();
@@ -94,42 +102,63 @@ $(document).ready(function () {
 
   //choose a character
   characterImg.on('click', function (event) {
-    let _this = $(this);
+    const $this = $(this);
     console.log(chosenHeroDiv.has('img').length);
 
     if (!chosenHeroDiv.has('img').length) {
-      _this.next().addClass('hero-health')
+      $this.next().addClass('hero-health')
       heroHealthText = $('p.hero-health > span')
-      chosenHeroDiv.append(_this.next());
-      chosenHeroDiv.append(_this);
-      (_this).addClass('chosen-hero')
+      chosenHeroDiv.append($this.next());
+      chosenHeroDiv.append($this);
+      ($this).addClass('chosen-hero')
       chosenHero = $('img.chosen-hero');
 
 
       screen3.fadeIn();
 
-      if (_this.attr("side") === "rebel") {
+      if ($this.attr("side") === "rebel") {
         rebelsDiv.fadeOut();
         heroSide = "rebels";
+        enemySide = "imperials";
       }
       else {
         imperialsDiv.fadeOut();
         heroSide = "imperials";
+        enemySide = "rebels";
       }
       chooseCharacText.text("choose a character to fight")
       console.log(chosenHeroDiv.has('img').length);
     }
     else if (!chosenEnemyDiv.has('img').length) {
-      _this.next().addClass('enemy-health')
+      $this.next().addClass('enemy-health')
       enemyHealthText = $('p.enemy-health > span')
-      chosenEnemyDiv.append(_this.next());
-      chosenEnemyDiv.append(_this);
-      (_this).addClass('chosen-enemy')
+      chosenEnemyDiv.append($this.next());
+      chosenEnemyDiv.append($this);
+      ($this).addClass('chosen-enemy')
       chosenEnemy = $('img.chosen-enemy');
       chooseCharacText.fadeOut();
       $('button.attack').show();
+      finalEnemy();
     }
   });
+
+  //set end of game screen wording
+  let setSideSpan = function(heroSide, enemySide) {
+    $yourSide.text(heroSide.toUpperCase());
+    $otherSide.text(enemySide.toUpperCase());
+  };
+
+  // check to see if you are fighting the final enemy
+  let finalEnemy = function() {
+    console.log($defeatedEnemies.has('img').length)
+    console.log($defeatedEnemies);
+    if((enemySide == "rebels" && !rebelsDiv.has('img').length) ||
+        enemySide == "imperials" && !imperialsDiv.has('img').length){
+      $('h2.side-title').fadeOut();
+      $('h2.battle').text("FINAL BATTLE!")
+    }
+  };
+
 
   // hover display health
   characterImg.mouseenter(
@@ -143,10 +172,9 @@ $(document).ready(function () {
     }
   )
 
+
   let setChosenValues = function () {
     if (chosenHeroDiv.has('img').length && chosenEnemyDiv.has('img').length) {
-      // let chosenHero = $('img.chosen-hero');
-      // let chosenEnemy = $('img.chosen-enemy');
 
       let heroName = chosenHero.attr('name');
       let enemyName = chosenEnemy.attr('name');
@@ -157,35 +185,45 @@ $(document).ready(function () {
       heroHealth = characters[heroName]['health'];
       enemyHealth = characters[enemyName]['health'];
 
-      return [heroHealth, enemyHealth]
     }
   }
 
-  $('button.attack').on('click', function () {
-    if (!battleStarted) {
-      setChosenValues();
-      newAttack = parseInt(heroAttack);
-    }
+  // check to see if hero or enemy has been defeated
+  let isDefeated = function () {
+    setSideSpan(heroSide, enemySide);
+    if (enemyHealth <= 0) {
+      chosenEnemy.removeClass('chosen-enemy')
+      chosenEnemyDiv.contents().appendTo($defeatedEnemies);
+      $('button.attack').hide();
 
-    let isDefeated = function () {
-      if (enemyHealth <= 0) {
-        chosenEnemy.removeClass('chosen-enemy')
-        chosenEnemyDiv.contents().appendTo('div.defeated-enemies');
-        $('button.attack').hide();
+      if (heroSide === "rebels") {
 
-        if (heroSide === "rebels") {
-
-          if (imperialsDiv.has('img').length) {
-            chooseCharacText.text("choose another character to fight").fadeIn();
-          }
-          else {
-            screen3.fadeOut();
-          }
+        if (imperialsDiv.has('img').length) {
+          chooseCharacText.text("choose another character to fight").fadeIn();
+        }
+        else {
+          screen3.fadeOut();
+          youWinScreen.fadeIn();
         }
       }
-
+      else {
+        if (rebelsDiv.has('img').length) {
+          chooseCharacText.text("choose another character to fight").fadeIn();
+        }
+        else {
+          screen3.fadeOut();
+          youWinScreen.fadeIn();
+        }
+      }
     }
+    else if (heroHealth <= 0) {
+      screen3.fadeOut();
+      youLoseScreen.fadeIn();
+    }
+  }
 
+  // reduces players' health by amount they were attacked
+  let attack = function () {
     enemyHealth -= parseInt(newAttack);
     isDefeated();
     heroHealth -= parseInt(enemyAttack)
@@ -193,9 +231,17 @@ $(document).ready(function () {
     newAttack += heroAttack;
     heroHealthText.text(heroHealth)
     enemyHealthText.text(enemyHealth)
+  }
+
+  $('button.attack').on('click', function () {
+    if (!battleStarted) {
+      setChosenValues();
+      newAttack = parseInt(heroAttack);
+    }
+    isDefeated();
+    attack();
 
     battleStarted = true;
-
   });
 
 

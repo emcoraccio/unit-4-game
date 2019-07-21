@@ -22,7 +22,7 @@ h2 {
    width: 100%;
  }
  
- div.screen3 {
+ div.screen3, div.you-win-screen, div.you-lose-screen {
    display: none;
  }
  
@@ -35,11 +35,18 @@ h2 {
   div.options {
     font-size: 5em;
     text-align: center;
-      
+    margin-top: 80px;
   }
 
  span.choice:hover {
    text-decoration: underline;
+ }
+
+ span.rebels-choice:hover {
+   color: rgb(166, 243, 50);
+ }
+ span.imperials-choice:hover {
+   color: rgb(250, 9, 9);
  }
 
  p.choose {
@@ -83,3 +90,10 @@ h2 {
   div.defeated-enemies {
     display:none;
   }
+
+ p.end-game-text {
+   text-align: center;
+   font-size: 5em;
+   position: relative;
+   top: 30%;
+ }

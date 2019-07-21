@@ -19,7 +19,8 @@
     <section class="game-play">
 
       <div class="options screen2">
-        <p>Play as a <span class="choice rebels-choice" choice="rebels">Rebel</span> or an <span class="choice imperials-choice" choice="imperials">Imperial</span>?</p>
+        <p>Play as a <span class="choice rebels-choice" choice="rebels">Rebel</span> </p>
+        <p>or an <span class="choice imperials-choice" choice="imperials">Imperial</span>?</p>
       </div>
 
       <div class="container">
@@ -27,7 +28,7 @@
           <div class="col s12 cont-rebels screen3">
             <div class="row">
               <div class="col s12">
-                <h2>REBELS</h2>
+                <h2 class="side-title">REBELS</h2>
                 <p class="choose">choose a character to be</p>
               </div>
               <div class="col l4 m4 s12">
@@ -50,7 +51,7 @@
         <div class="col s12 cont-imperials screen3">
           <div class="row">
             <div class="col s12">
-              <h2>IMPERIALS</h2>
+              <h2 class="side-title">IMPERIALS</h2>
               <p class="choose">choose a character to be</p>
             </div>
             <div class="col l4 m4 s12">
@@ -74,13 +75,22 @@
         <div class="col s12 cont-battle screen3">
           <div class="row battle">
             <div class="col s12">
-              <h2>Battle!</h2>      
+              <h2 class="battle">Battle!</h2>      
             </div>
             <div class="col s12 m5 chosen-hero"></div>
             <div class="col s12 m2"><button class="waves-effect waves-light btn attack red accent-4">ATTACK!</button></div>
             <div class="col s12 m5 chosen-enemy"></div>
           </div>
         </div>
+      </div>
+
+      <div class="you-win-screen">
+        <p class="end-game-text">YOU WON!!</p> 
+        <p class="end-game-text">THE <span class="your-side"></span> HAVE DEFEATED THE <span class="other-side"></span></p>
+      </div>
+      <div class="you-lose-screen">
+        <p class="end-game-text">YOU LOST!!</p> 
+        <p class="end-game-text"> THE <span class="your-side"></span> HAVE BEEN DEFEATED BY THE <span class="other-side"></span></p>
       </div>
 
     </section>
