@@ -71,6 +71,7 @@ $(document).ready(function () {
   let enemyHealth;
   let heroSide;
   let enemySide;
+  let enemyName;
 
   let battleStarted = false;
 
@@ -83,7 +84,7 @@ $(document).ready(function () {
     tarkinHealth.text(characters.tarkin.health);
     stormtrooperHealth.text(characters.stormtrooper.health);
     battleStarted = false;
-    
+
   }
 
   reset();
@@ -130,6 +131,7 @@ $(document).ready(function () {
       console.log(chosenHeroDiv.has('img').length);
     }
     else if (!chosenEnemyDiv.has('img').length) {
+      $('p.enemy-defeated').fadeOut();
       $this.next().addClass('enemy-health')
       enemyHealthText = $('p.enemy-health > span')
       chosenEnemyDiv.append($this.next());
@@ -143,110 +145,121 @@ $(document).ready(function () {
   });
 
   //set end of game screen wording
-  let setSideSpan = function(heroSide, enemySide) {
+  let setSideSpan = function (heroSide, enemySide) {
     $yourSide.text(heroSide.toUpperCase());
     $otherSide.text(enemySide.toUpperCase());
   };
 
   // check to see if you are fighting the final enemy
-  let finalEnemy = function() {
-    console.log($defeatedEnemies.has('img').length)
-    console.log($defeatedEnemies);
-    if((enemySide == "rebels" && !rebelsDiv.has('img').length) ||
-        enemySide == "imperials" && !imperialsDiv.has('img').length){
-      $('h2.side-title').fadeOut();
+  let finalEnemy = function () {
+    if (enemySide == "rebels" && !rebelsDiv.has('img').length) {
+      $('h2.rebel-side-title').fadeOut();
+      $('h2.battle').text("FINAL BATTLE!")      
+    }
+    else if (enemySide == "imperials" && !imperialsDiv.has('img').length){
+      $('h2.imperial-side-title').fadeOut();
       $('h2.battle').text("FINAL BATTLE!")
     }
-  };
+    };
 
-
-  // hover display health
-  characterImg.mouseenter(
-    function () {
-      $(this).next().slideDown();
-    }
-  )
-  characterImg.mouseleave(
-    function () {
-      $(this).next().slideUp();
-    }
-  )
-
-
-  let setChosenValues = function () {
-    if (chosenHeroDiv.has('img').length && chosenEnemyDiv.has('img').length) {
-
-      let heroName = chosenHero.attr('name');
-      let enemyName = chosenEnemy.attr('name');
-
-      enemyAttack = characters[enemyName]['attack'];
-      heroAttack = characters[heroName]['attack'];
-
-      heroHealth = characters[heroName]['health'];
-      enemyHealth = characters[enemyName]['health'];
-
-    }
+// hover display health
+characterImg.mouseenter(
+  function () {
+    $(this).next().slideDown();
   }
+)
+characterImg.mouseleave(
+  function () {
+    $(this).next().slideUp();
+  }
+)
 
-  // check to see if hero or enemy has been defeated
-  let isDefeated = function () {
-    setSideSpan(heroSide, enemySide);
-    if (enemyHealth <= 0) {
-      chosenEnemy.removeClass('chosen-enemy')
-      chosenEnemyDiv.contents().appendTo($defeatedEnemies);
-      $('button.attack').hide();
+// sets values and spans of battling hero and enemy
+let setChosenValues = function () {
+  if (chosenHeroDiv.has('img').length && chosenEnemyDiv.has('img').length) {
 
-      if (heroSide === "rebels") {
+    let heroName = chosenHero.attr('name');
+    let enemyName = chosenEnemy.attr('name');
 
-        if (imperialsDiv.has('img').length) {
-          chooseCharacText.text("choose another character to fight").fadeIn();
-        }
-        else {
-          screen3.fadeOut();
-          youWinScreen.fadeIn();
-        }
+    enemyAttack = characters[enemyName]['attack'];
+    heroAttack = characters[heroName]['attack'];
+
+    heroHealth = characters[heroName]['health'];
+    enemyHealth = characters[enemyName]['health'];
+
+    $('span.hero-name').text(heroName);
+    $('span.enemy-name').text(enemyName);
+    $('span.hero-damage').text(heroAttack);
+    $('span.enemy-damage').text(enemyAttack);
+  }
+}
+
+// check to see if hero or enemy has been defeated
+let isDefeated = function () {
+  setSideSpan(heroSide, enemySide);
+  if (enemyHealth <= 0) {
+    chosenEnemy.removeClass('chosen-enemy')
+    chosenEnemyDiv.contents().appendTo($defeatedEnemies);
+    $('button.attack').hide();
+    $("p.player-attack").hide();
+    $('p.enemy-defeated').text(chosenEnemy.attr('name') + ' has been defeated').fadeIn();
+
+    if (heroSide === "rebels") {
+
+      if (imperialsDiv.has('img').length) {
+        chooseCharacText.text("choose another character to fight").fadeIn();
       }
       else {
-        if (rebelsDiv.has('img').length) {
-          chooseCharacText.text("choose another character to fight").fadeIn();
-        }
-        else {
-          screen3.fadeOut();
-          youWinScreen.fadeIn();
-        }
+        screen3.fadeOut();
+        youWinScreen.fadeIn();
       }
     }
-    else if (heroHealth <= 0) {
-      screen3.fadeOut();
-      youLoseScreen.fadeIn();
+    else {
+      if (rebelsDiv.has('img').length) {
+        chooseCharacText.text("choose another character to fight").fadeIn();
+      }
+      else {
+        screen3.fadeOut();
+        youWinScreen.fadeIn();
+      }
     }
+    return true;
   }
+  else if (heroHealth <= 0) {
+    screen3.fadeOut();
+    youLoseScreen.fadeIn();
+    return true;
+  }
+  else {
+    return false;
+  }
+}
 
-  // reduces players' health by amount they were attacked
-  let attack = function () {
-    enemyHealth -= parseInt(newAttack);
-    isDefeated();
+// reduces players' health by amount they were attacked
+let attack = function () {
+  enemyHealth -= parseInt(newAttack);
+  isDefeated();
+  console.log(isDefeated());
+  if (!isDefeated()) {
     heroHealth -= parseInt(enemyAttack)
-
-    newAttack += heroAttack;
-    heroHealthText.text(heroHealth)
-    enemyHealthText.text(enemyHealth)
+    $('p.player-attack').css('visibility', 'visible').hide().fadeIn('slow');
   }
 
-  $('button.attack').on('click', function () {
-    if (!battleStarted) {
-      setChosenValues();
-      newAttack = parseInt(heroAttack);
-    }
-    isDefeated();
-    attack();
+  newAttack += heroAttack;
+  $('span.hero-damage').text(newAttack - heroAttack);
+  heroHealthText.text(heroHealth)
+  enemyHealthText.text(enemyHealth)
+}
 
-    battleStarted = true;
-  });
+$('button.attack').on('click', function () {
+  if (!battleStarted) {
+    setChosenValues();
+    newAttack = parseInt(heroAttack);
+  }
+  isDefeated();
+  attack();
 
-
-
-
-
+  battleStarted = true;
+});
 
 });

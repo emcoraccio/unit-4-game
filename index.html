@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" href="./assets/css/style.css">
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -25,73 +25,119 @@
 
       <div class="container">
         <div class="row">
+
           <div class="col s12 cont-rebels screen3">
             <div class="row">
               <div class="col s12">
-                <h2 class="side-title">REBELS</h2>
+                <h2 class="rebel-side-title">REBELS</h2>
                 <p class="choose">choose a character to be</p>
               </div>
-              <div class="col l4 m4 s12">
-                <img class="character rebel luke" name="luke" side="rebel" src="./assets/images/luke-skywalker.jpg" alt="luke skywalker">
-                <p class="health-display rebel">HEALTH: <span class="health luke" name="luke"></span></p>
+
+              <div class="col l4 m4 s12 character">
+                <div class="character-wrapper">
+                  <img class="character rebel luke" name="luke" side="rebel" src="./assets/images/luke-skywalker.jpg"
+                    alt="luke skywalker">
+                  <p class="health-display rebel">HEALTH: <span class="health luke" name="luke"></span></p>
+                </div>
               </div>
-              <div class="col l4 m4 s12">
-                <img class="character rebel leia" name="leia" side="rebel" src="./assets/images/princess-leia.jpg" alt="princess leia">
-                <p class="health-display rebel">HEALTH: <span class="health leia" name="leia"></span></p>
+
+              <div class="col l4 m4 s12 character">
+                <div class="character-wrapper">
+                  <img class="character rebel leia" name="leia" side="rebel" src="./assets/images/princess-leia.jpg"
+                    alt="princess leia">
+                  <p class="health-display rebel">HEALTH: <span class="health leia" name="leia"></span></p>
+                </div>
               </div>
-              <div class="col l4 m4 s12">
-                <img class="character rebel yoda" name="yoda" side="rebel" src="./assets/images/yoda.jpg" alt="yoda">
-                <p class="health-display rebel">HEALTH: <span class="health yoda" name="yoda"></span></p>              
+
+              <div class="col l4 m4 s12 character">
+                <div class="character-wrapper">
+                  <img class="character rebel yoda" name="yoda" side="rebel" src="./assets/images/yoda.jpg" alt="yoda">
+                  <p class="health-display rebel">HEALTH: <span class="health yoda" name="yoda"></span></p>
+                </div>
               </div>
+
             </div>
           </div>
 
 
 
-        <div class="col s12 cont-imperials screen3">
-          <div class="row">
-            <div class="col s12">
-              <h2 class="side-title">IMPERIALS</h2>
-              <p class="choose">choose a character to be</p>
-            </div>
-            <div class="col l4 m4 s12">
-              <img class="character imperial atdp" name="atdp" side="imperial" src="./assets/images/ATDP.jpg" alt="atdp">
-              <p class="health-display imperial">HEALTH: <span class="health atdp" name="atdp"></span></p>                          
-            </div>
-            <div class="col l4 m4 s12">
-              <img class="character imperial tarkin" name="tarkin" side="imperial" src="./assets/images/grand-moff-tarkin.jpg" alt="grand-moff-tarkin">
-              <p class="health-display imperial">HEALTH: <span class="health tarkin" name="tarkin"></span></p>                          
-            </div>
-            <div class="col l4 m4 s12">
-              <img class="character imperial stormtrooper" name="stormtrooper" side="imperial" src="./assets/images/stormtrooper.jpg" alt="stormtrooper">
-              <p class="health-display imperial">HEALTH: <span class="health stormtrooper" name="stormtrooper"></span></p>                          
-            </div>
+          <div class="col s12 cont-imperials screen3">
+            <div class="row">
 
+              <div class="col s12">
+                <h2 class="imperial-side-title">IMPERIALS</h2>
+                <p class="choose">choose a character to be</p>
+              </div>
+
+              <div class="col l4 m4 s12 character">
+                <div class="character-wrapper">
+                  <img class="character imperial atdp" name="atdp" side="imperial" src="./assets/images/ATDP.jpg"
+                    alt="atdp">
+                  <p class="health-display imperial">HEALTH: <span class="health atdp" name="atdp"></span></p>
+                </div>
+              </div>
+
+              <div class="col l4 m4 s12 character">
+                <div class="character-wrapper">
+                  <img class="character imperial tarkin" name="tarkin" side="imperial"
+                    src="./assets/images/grand-moff-tarkin.jpg" alt="grand-moff-tarkin">
+                  <p class="health-display imperial">HEALTH: <span class="health tarkin" name="tarkin"></span></p>
+                </div>
+              </div>
+
+              <div class="col l4 m4 s12 character">
+                <div class="character-wrapper">
+                  <img class="character imperial stormtrooper" name="stormtrooper" side="imperial"
+                    src="./assets/images/stormtrooper.jpg" alt="stormtrooper">
+                  <p class="health-display imperial">HEALTH: <span class="health stormtrooper"
+                      name="stormtrooper"></span>
+                </div>
+                </p>
+              </div>
+
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col s12 cont-battle screen3">
-          <div class="row battle">
-            <div class="col s12">
-              <h2 class="battle">Battle!</h2>      
+        <div class="row">
+
+          <div class="col s12 cont-battle screen3">
+            <div class="row battle">
+              <div class="col s12">
+                <h2 class="battle">Battle!</h2>
+              </div>
+
+              <div class="col s12 m5">
+                <p class="player-attack"><span class="enemy-name"></span> has attacked you for <span
+                    class="enemy-damage"></span> damage</p>
+                <div class="chosen-hero"></div>
+              </div>
+
+              <div class="col s12 m2"><button class="waves-effect waves-light btn attack red accent-4">ATTACK!</button>
+              </div>
+
+              <div class="col s12 m5">
+                <p class="player-attack"><span class="hero-name"></span> has attacked <span class="enemy-name"></span>
+                  for <span class="hero-damage"></span> damage</p>
+                <p class="enemy-defeated"></p>
+                <div class="chosen-enemy"></div>
+              </div>
+
             </div>
-            <div class="col s12 m5 chosen-hero"></div>
-            <div class="col s12 m2"><button class="waves-effect waves-light btn attack red accent-4">ATTACK!</button></div>
-            <div class="col s12 m5 chosen-enemy"></div>
           </div>
         </div>
-      </div>
 
-      <div class="you-win-screen">
-        <p class="end-game-text">YOU WON!!</p> 
-        <p class="end-game-text">THE <span class="your-side"></span> HAVE DEFEATED THE <span class="other-side"></span></p>
-      </div>
-      <div class="you-lose-screen">
-        <p class="end-game-text">YOU LOST!!</p> 
-        <p class="end-game-text"> THE <span class="your-side"></span> HAVE BEEN DEFEATED BY THE <span class="other-side"></span></p>
-      </div>
+        <div class="you-win-screen">
+          <p class="end-game-text">YOU WON!!</p>
+          <p class="end-game-text">THE <span class="your-side"></span> HAVE DEFEATED THE <span
+              class="other-side"></span></p>
+        </div>
+
+        <div class="you-lose-screen">
+          <p class="end-game-text">YOU LOST!!</p>
+          <p class="end-game-text"> THE <span class="your-side"></span> HAVE BEEN DEFEATED BY THE <span
+              class="other-side"></span></p>
+        </div>
 
     </section>
 
@@ -100,7 +146,7 @@
   </main>
 
 
-<script src="./assets/javascript/game.js"></script>
+  <script src="./assets/javascript/game.js"></script>
 </body>
 
 </html>

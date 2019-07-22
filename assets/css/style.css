@@ -1,3 +1,6 @@
+/* font imports */
+@import url('https://fonts.googleapis.com/css?family=Cinzel&display=swap');
+
 /* general styling */
 body {
   /* background styling */
@@ -7,7 +10,8 @@ body {
   -o-background-size: cover;
   background-size: cover;
   /* background: #000000; */
-  font-family: 'Fjalla One', sans-serif;
+  font-family: 'Cinzel', serif;
+  /* font-family: 'Pathway Gothic One', sans-serif; */
 }
 
 body {
@@ -18,9 +22,18 @@ h2 {
   text-align: center;
 }
 
- img {
-   width: 100%;
- }
+h2.rebel-side-title {
+  text-shadow: rgb(166, 243, 50) 3px 0 10px;
+}
+
+h2.imperial-side-title {
+  text-shadow: rgb(250, 9, 9) 3px 0 10px;
+}
+
+img {
+ width: 100%;
+ margin-bottom: 0;
+}
  
  div.screen3, div.you-win-screen, div.you-lose-screen {
    display: none;
@@ -38,19 +51,17 @@ h2 {
     margin-top: 80px;
   }
 
- span.choice:hover {
-   text-decoration: underline;
- }
-
  span.rebels-choice:hover {
-   color: rgb(166, 243, 50);
+  text-shadow: rgb(166, 243, 50) 3px 0 10px;
  }
  span.imperials-choice:hover {
-   color: rgb(250, 9, 9);
+  text-shadow: rgb(250, 9, 9) 3px 0 10px;
  }
 
  p.choose {
    text-align: center;
+   margin: 15px;
+   font-family: 'Cinzel', serif;
  }
 
 /* styling for character images */
@@ -81,10 +92,21 @@ h2 {
     background: rgb(250, 9, 9);
   }
   
+  p.player-attack {
+    margin: 15px;
+    text-align: center;
+    visibility: hidden;
+  }
   
   button.attack {
     margin: auto;
     display:none;
+  }
+
+  p.enemy-defeated {
+    display: none;
+    font-size: 3em;
+    text-align: center;
   }
 
   div.defeated-enemies {
@@ -97,3 +119,36 @@ h2 {
    position: relative;
    top: 30%;
  }
+
+
+@media screen and (max-width: 640px) {
+  img {
+    width: 80%;
+    display: block;
+    margin: auto;
+    margin-top: 15px;
+  }
+
+  div.character {
+    display: block;
+    margin: auto;
+  }
+
+  p.health-display {
+    width: 80%;
+    display: block;
+    margin: auto;
+    margin-bottom: 15px;
+  }
+
+  button.attack {
+    display: block;
+    margin: auto;
+    margin-top: 15px;
+  }
+
+  p.player-attack {
+    text-align: center;
+    padding: 15px;
+  }
+}
