@@ -8,7 +8,7 @@ let characters = {
 
   leia: {
     health: 150,
-    attack: 9
+    attack: 8
   },
 
   yoda: {
@@ -22,7 +22,7 @@ let characters = {
   },
 
   tarkin: {
-    health: 50,
+    health: 65,
     attack: 6
   },
 
@@ -36,6 +36,7 @@ let characters = {
 
 $(document).ready(function () {
 
+  //global variables
   let screen1 = $('div.screen1');
   let screen2 = $('div.screen2');
   let screen3 = $('div.screen3');
@@ -65,13 +66,18 @@ $(document).ready(function () {
   let heroAttack;
   let enemyAttack;
   let newAttack;
+
   let heroHealthText;
   let enemyHealthText;
+
   let heroHealth;
   let enemyHealth;
+
   let heroSide;
   let enemySide;
+
   let enemyName;
+  let heroName;
 
   let battleStarted = false;
 
@@ -104,7 +110,6 @@ $(document).ready(function () {
   //choose a character
   characterImg.on('click', function (event) {
     const $this = $(this);
-    console.log(chosenHeroDiv.has('img').length);
 
     if (!chosenHeroDiv.has('img').length) {
       $this.next().addClass('hero-health')
@@ -113,7 +118,6 @@ $(document).ready(function () {
       chosenHeroDiv.append($this);
       ($this).addClass('chosen-hero')
       chosenHero = $('img.chosen-hero');
-
 
       screen3.fadeIn();
 
@@ -139,6 +143,7 @@ $(document).ready(function () {
       ($this).addClass('chosen-enemy')
       chosenEnemy = $('img.chosen-enemy');
       chooseCharacText.fadeOut();
+      setChosenEnemy();
       $('button.attack').show();
       finalEnemy();
     }
@@ -178,8 +183,8 @@ characterImg.mouseleave(
 let setChosenValues = function () {
   if (chosenHeroDiv.has('img').length && chosenEnemyDiv.has('img').length) {
 
-    let heroName = chosenHero.attr('name');
-    let enemyName = chosenEnemy.attr('name');
+    heroName = chosenHero.attr('name');
+    enemyName = chosenEnemy.attr('name');
 
     enemyAttack = characters[enemyName]['attack'];
     heroAttack = characters[heroName]['attack'];
@@ -192,6 +197,14 @@ let setChosenValues = function () {
     $('span.hero-damage').text(heroAttack);
     $('span.enemy-damage').text(enemyAttack);
   }
+}
+
+let setChosenEnemy = function () {
+  enemyName = chosenEnemy.attr('name');
+  enemyAttack = characters[enemyName]['attack'];
+  enemyHealth = characters[enemyName]['health'];
+  $('span.enemy-name').text(enemyName);
+  $('span.enemy-damage').text(enemyAttack);
 }
 
 // check to see if hero or enemy has been defeated
@@ -242,6 +255,7 @@ let attack = function () {
   console.log(isDefeated());
   if (!isDefeated()) {
     heroHealth -= parseInt(enemyAttack)
+    isDefeated();
     $('p.player-attack').css('visibility', 'visible').hide().fadeIn('slow');
   }
 

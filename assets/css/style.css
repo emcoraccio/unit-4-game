@@ -65,12 +65,16 @@ img {
  }
 
 /* styling for character images */
- img.rebel:hover {
-   border: 2px solid rgb(166, 243, 50);
+ img.rebel:hover, p.rebel{
+  -webkit-box-shadow: 0px 0px 10px 2px rgb(166, 243, 50);
+  -moz-box-shadow: 0px 0px 10px 2px rgb(166, 243, 50);
+  box-shadow: 0px 0px 10px 2px rgb(166, 243, 50);
  }
 
- img.imperial:hover {
-   border: 2px solid rgb(250, 9, 9);
+ img.imperial:hover, p.imperial{
+   -webkit-box-shadow: 0px 0px 10px 2px rgb(250, 9, 9);
+   -moz-box-shadow: 0px 0px 10px 2px rgb(250, 9, 9);
+   box-shadow: 0px 0px 10px 2px rgb(250, 9, 9);
  }
 
  /* styling for health display of characters */
@@ -85,13 +89,14 @@ img {
   }
   
   p.rebel {
-    background: rgb(166, 243, 50);
+    background-image: radial-gradient(#ffffff, rgb(166, 243,50));
   }
   
   p.imperial {
-    background: rgb(250, 9, 9);
+    background-image: radial-gradient(#ffffff, rgb(250, 9, 9));
   }
   
+
   p.player-attack {
     margin: 15px;
     text-align: center;
@@ -122,6 +127,7 @@ img {
 
 
 @media screen and (max-width: 640px) {
+  /* character image and detail styling */
   img {
     width: 80%;
     display: block;
@@ -141,6 +147,7 @@ img {
     margin-bottom: 15px;
   }
 
+  /* battle styling */
   button.attack {
     display: block;
     margin: auto;
@@ -150,5 +157,9 @@ img {
   p.player-attack {
     text-align: center;
     padding: 15px;
+  }
+
+  p.enemy-defeated {
+    padding-top: 50px;
   }
 }
