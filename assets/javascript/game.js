@@ -66,6 +66,8 @@ $(document).ready(function () {
   let heroAttack;
   let enemyAttack;
   let newAttack;
+  let comboCounter = 0;
+  let combo;
 
   let heroHealthText;
   let enemyHealthText;
@@ -82,6 +84,8 @@ $(document).ready(function () {
   let battleStarted = false;
 
 
+
+
   let reset = function () {
     lukeHealth.text(characters.luke.health);
     leiaHealth.text(characters.leia.health);
@@ -92,38 +96,38 @@ $(document).ready(function () {
     battleStarted = false;
 
   }
-  
+
   // sets values and spans of battling hero and enemy
   let setChosenValues = function () {
     if (chosenHeroDiv.has('img').length && chosenEnemyDiv.has('img').length) {
-      
+
       heroName = chosenHero.attr('name');
       enemyName = chosenEnemy.attr('name');
-      
+
       enemyAttack = characters[enemyName]['attack'];
       heroAttack = characters[heroName]['attack'];
-      
+
       heroHealth = characters[heroName]['health'];
       enemyHealth = characters[enemyName]['health'];
-      
+
       $('span.hero-name').text(heroName);
       $('span.enemy-name').text(enemyName);
       $('span.hero-damage').text(heroAttack);
       $('span.enemy-damage').text(enemyAttack);
     }
   }
-  
+
   // sets values for enemy user chooses to fight
   let setChosenEnemy = function () {
     enemyName = chosenEnemy.attr('name');
-    
+
     enemyAttack = characters[enemyName]['attack'];
     enemyHealth = characters[enemyName]['health'];
 
     $('span.enemy-name').text(enemyName);
     $('span.enemy-damage').text(enemyAttack);
   }
-  
+
   // check to see if hero or enemy has been defeated
   let isDefeated = function () {
     setSideSpan(heroSide, enemySide);
@@ -132,10 +136,11 @@ $(document).ready(function () {
       chosenEnemyDiv.contents().appendTo($defeatedEnemies);
       $('button.attack').hide();
       $("p.player-attack").hide();
+      $("p.combo").hide();
       $('p.enemy-defeated').text(`${chosenEnemy.attr('name')} has been defeated`).fadeIn();
-      
+
       if (heroSide === "rebels") {
-        
+
         if (imperialsDiv.has('img').length) {
           chooseCharacText.text("choose another character to fight").fadeIn();
         }
@@ -164,7 +169,7 @@ $(document).ready(function () {
       return false;
     }
   }
-  
+
   // reduces players' health by amount they were attacked
   let attack = function () {
     enemyHealth -= parseInt(newAttack);
@@ -175,14 +180,46 @@ $(document).ready(function () {
       isDefeated();
       $('p.player-attack').css('visibility', 'visible').hide().fadeIn('slow');
     }
-    
+
     newAttack += heroAttack;
     $('span.hero-damage').text(newAttack - heroAttack);
     heroHealthText.text(heroHealth)
     enemyHealthText.text(enemyHealth)
   }
-  
-  
+
+  let comboAttack = function () {
+    combo = Math.floor(Math.random() * 2);
+    console.log(combo);
+    if (!isDefeated()) {
+      if (combo) {
+        comboCounter++;
+        if (comboCounter > 1) {
+          $('p.combo').text('Combo!').css('visibility', 'visible').hide().fadeIn('slow');
+          newAttack += heroAttack
+        }
+        else {
+          $('p.combo').hide();
+          newAttack = heroAttack;
+        }
+        $('span.hero-damage').text(newAttack);
+        enemyHealth -= parseInt(newAttack);
+        $('p.player-attack').css('visibility', 'visible').hide().fadeIn('slow');
+      }
+      else {
+        comboCounter = 0;
+        newAttack = heroAttack
+        $('p.combo').text('you missed').css('visibility', 'visible').hide().fadeIn('slow');
+        $('span.hero-damage').text(0);
+      }
+      heroHealthText.text(heroHealth)
+      enemyHealthText.text(enemyHealth)
+
+      heroHealth -= parseInt(enemyAttack)
+      isDefeated();
+    }
+  }
+
+
   // check to see if you are fighting the final enemy
   let finalEnemy = function () {
     if (enemySide == "rebels" && !rebelsDiv.has('img').length) {
@@ -194,7 +231,7 @@ $(document).ready(function () {
       $('h2.battle').text("FINAL BATTLE!")
     }
   };
-  
+
   //set end of game screen wording
   let setSideSpan = function (heroSide, enemySide) {
     $yourSide.text(heroSide.toUpperCase());
@@ -244,7 +281,6 @@ $(document).ready(function () {
         enemySide = "rebels";
       }
       chooseCharacText.text("choose a character to fight")
-      console.log(chosenHeroDiv.has('img').length);
     }
     else if (!chosenEnemyDiv.has('img').length) {
       $('p.enemy-defeated').fadeOut();
@@ -281,8 +317,9 @@ $(document).ready(function () {
       setChosenValues();
       newAttack = parseInt(heroAttack);
     }
+    comboAttack();
     isDefeated();
-    attack();
+    // attack();
 
     battleStarted = true;
   });
